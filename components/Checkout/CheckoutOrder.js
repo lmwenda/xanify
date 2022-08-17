@@ -52,19 +52,21 @@ import {
             </Text>
           </Flex>
         </Stack>
-        <Button onClick={(e) => {
-          e.preventDefault()  
-          checkout({
-            lineItems: [
-              {
-                price: "price_1LXpP7KLN8ysY61e55QuHV0e",
-                quantity: 1,
-              }
-            ],
-          })
-        }} colorScheme="blue" size="lg" fontSize="md" rightIcon={<FaArrowRight />}>
-            Mystery Order
-        </Button>
+        <Link href="https://buy.stripe.com/test_4gwdTP4Jg1La9z2cMM">
+            <Button onClick={(e) => {
+              e.preventDefault()  
+              checkout({
+                lineItems: [
+                  {
+                    price: "price_1LXpP7KLN8ysY61e55QuHV0e",
+                    quantity: 1,
+                  }
+                ],
+              })
+            }} colorScheme="blue" size="lg" fontSize="md" rightIcon={<FaArrowRight />}>
+                Mystery Order
+            </Button>
+        </Link>
       </Stack>
     )
   }
