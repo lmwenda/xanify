@@ -17,10 +17,10 @@ const ProductScreen = (product) => {
             for (let i=parsedItems.length;i--;){
                 items.push(parsedItems[i])
             }
-            items.push(id)
+            items.push({ id, title, price, image, category})
             localStorage.setItem("cart", JSON.stringify(items))
         } else {
-            const items = [id]
+            const items = [{ id, title, price, image, category }]
             localStorage.setItem("cart", JSON.stringify(items))
         }
 

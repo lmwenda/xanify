@@ -24,20 +24,23 @@ import {
   }
   
   export const CartOrderSummary = (price) => {
+    const discount = price.price * 0.3;
+    const VAT = price.price * 0.2;
+    const finalPrice = price.price + VAT - discount;
     return (
       <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width="full">
         <Heading size="md">Order Summary</Heading>
   
         <Stack spacing="6">
-          <OrderSummaryItem label="Subtotal" value={`£${price.price}`} />
-          <OrderSummaryItem label="Shipping + Tax">
+          <OrderSummaryItem label="Subtotal" value={`£${price.price.toFixed(2)}`} />
+          <OrderSummaryItem label="VAT">
             <Link href="#" textDecor="underline">
-              Calculate shipping
+              £{VAT.toFixed(2)}
             </Link>
           </OrderSummaryItem>
           <OrderSummaryItem label="Coupon Code">
             <Link href="#" textDecor="underline">
-              Add coupon code
+              30% off
             </Link>
           </OrderSummaryItem>
           <Flex justify="space-between">
@@ -45,13 +48,15 @@ import {
               Total
             </Text>
             <Text fontSize="xl" fontWeight="extrabold">
-              £{price.price}
+              £{finalPrice.toFixed(2)}
             </Text>
           </Flex>
         </Stack>
-        <Button colorScheme="blue" size="lg" fontSize="md" rightIcon={<FaArrowRight />}>
-          Checkout
-        </Button>
+        <Link href="/checkout">
+          <Button colorScheme="blue" size="lg" fontSize="md" rightIcon={<FaArrowRight />}>
+            Checkout
+          </Button>
+        </Link>
       </Stack>
     )
   }

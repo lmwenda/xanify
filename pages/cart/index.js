@@ -12,36 +12,18 @@ import * as React from 'react'
 import { CartItem } from '../../components/Cart/CartItem'
 import { CartOrderSummary } from '../../components/Cart/CartOrderSummary'
 
-const Index = (products) => {
+const Index = () => {
     const [ totalPrice, setTotalPrice ] = React.useState(0)
-    const [ cartItems, setCartItems ] = React.useState([ { 
-        id: 0,
-        image: "",
-        category: "",
-        price: 0
-     } ])
+    const [ items, setCartItems ] = React.useState([])
 
     React.useEffect(() => {
-        async function cartHandler(){
-            const cartIDs = localStorage.getItem("cart")
-    
-            if(typeof cartIDs == "string"){
-                for (let i=products.products.length;i--;){
-                    let item=products.products[i];
-                    setTotalPrice(item.price + totalPrice)
-                    for (let i=cartIDs.length;i--;){
-                        let id=cartIDs[i]
-                        if(item.id === id){
-                            setCartItems([...cartItems, { id: item.id, image: item.image, category: item.category, price: item.price }])
-                        }
-                    }
-                }
-            }
-            else {
-                return;
-            }
-        }
-        cartHandler()
+        const cart = localStorage.getItem("cart")
+        const cartItems = JSON.parse(cart)
+        setCartItems(cartItems)
+        
+        const price = cartItems.reduce(
+        (totalPrice, item) => totalPrice + item.price, 0)
+        setTotalPrice(price)
     }, [])
 
     return(
@@ -84,13 +66,13 @@ const Index = (products) => {
                 flex="2"
             >
                 <Heading fontSize="2xl" fontWeight="extrabold">
-                    Shopping Cart ({cartItems.length - 1} items)
+                    Shopping Cart ({items ? items.length : 0} items)
                 </Heading>
 
                 <Stack spacing="6">
                     {
-                        cartItems.length - 1 >= 1 ? 
-                            cartItems.map((item) => (
+                        items ? 
+                            items.map((item) => (
                                 <CartItem key={item.id} {...item} />
                             ))
                         :
@@ -104,7 +86,7 @@ const Index = (products) => {
             </Stack>
 
                 <Flex direction="column" align="center" flex="1">
-                    <CartOrderSummary price={totalPrice >= 1 ? totalPrice : 0} />
+                    <CartOrderSummary price={totalPrice} />
                     <HStack mt="6" fontWeight="semibold">
                         <p>or</p>
                         <Link href="/" color={mode('blue.500', 'blue.200')}>Continue shopping</Link>
@@ -116,15 +98,3 @@ const Index = (products) => {
 }
 
 export default Index;
-
-
-export const getStaticProps = async() => {
-  const response = await fetch('https://fakestoreapi.com/products')
-  const products = await response.json()
-  
-  return {
-    props: {
-      products 
-    }
-  }
-}

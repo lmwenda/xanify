@@ -17,12 +17,7 @@ import {
   
   export const ProductCard = (props) => {
     const { product, rootProps } = props
-    const { title, image, price, id, salePrice } = product
-    const [ reviews, setReviews ] = React.useState(null)
-
-    React.useEffect(() => {
-        setReviews(Math.floor(Math.random() * 1000) + 1)
-    }, [])
+    const { title, image, price, id, rating } = product
 
     return (
       <Stack
@@ -60,12 +55,12 @@ import {
                 {title}
               </Text>
             </Link>
-            <PriceTag price={price} salePrice={salePrice} currency="GBP" />
+            <PriceTag price={price} salePrice={price * 0.3 } currency="GBP" />
           </Stack>
           <HStack>
-            <Rating defaultValue={Math.floor(Math.random() * 5) + 1} size="sm" />
+            <Rating defaultValue={rating.rate} size="sm" />
             <Text fontSize="sm" fallback={<Skeleton />} color={useColorModeValue('gray.600', 'gray.400')}>
-              {reviews} reviews
+              {rating.count} reviews
             </Text>
           </HStack>
         </Stack>

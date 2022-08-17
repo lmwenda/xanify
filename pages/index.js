@@ -18,8 +18,8 @@ export default function Home(products) {
     </Head>
     <ProductGrid>
       {products.products.map((product) => (
-        <FadeInSection>
-          <ProductCard key={product.id} product={product} />
+        <FadeInSection key={product.id}>
+          <ProductCard product={product} />
         </FadeInSection>
       ))}
     </ProductGrid>
