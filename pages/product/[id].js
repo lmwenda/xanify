@@ -1,9 +1,24 @@
 import Head from "next/head";
-import { Flex, Box, Badge, Heading, Text, Image, AspectRatio, Skeleton, useBreakpointValue, useColorMode, Button } from "@chakra-ui/react";
+import { 
+    Flex, 
+    Box, 
+    Badge, 
+    Heading, 
+    Text, 
+    Alert, 
+    AlertIcon, 
+    Image, 
+    Skeleton, 
+    useBreakpointValue, 
+    useColorMode, 
+    Button 
+} from "@chakra-ui/react";
 import FadeInSection from "../../components/FadeInSection";
+import { useState } from "react";
 
 const ProductScreen = (product) => {
 
+    const [ addedToCart, setAddedToCart ] = useState(false);
     const { colorMode, toggleColorMode } = useColorMode();
     const { category, title, description, price, image, id } = product.product
 
@@ -19,9 +34,11 @@ const ProductScreen = (product) => {
             }
             items.push({ id, title, price, image, category})
             localStorage.setItem("cart", JSON.stringify(items))
+            setAddedToCart(true)
         } else {
             const items = [{ id, title, price, image, category }]
             localStorage.setItem("cart", JSON.stringify(items))
+            setAddedToCart(true)
         }
 
     }
@@ -36,6 +53,15 @@ const ProductScreen = (product) => {
             <Head>
                 <title>Xanify</title>
             </Head>
+
+            {
+                addedToCart ? (
+                    <Alert mb={12} status='success'>
+                        <AlertIcon />
+                        Added to Cart
+                    </Alert>
+                ) : null
+            }
 
             <FadeInSection>
                 <Flex flexDirection={{ base: "column-reverse", md: "row" }} justifyContent={"center"} >

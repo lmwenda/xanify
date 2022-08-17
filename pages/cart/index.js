@@ -18,12 +18,14 @@ const Index = () => {
 
     React.useEffect(() => {
         const cart = localStorage.getItem("cart")
-        const cartItems = JSON.parse(cart)
-        setCartItems(cartItems)
-        
-        const price = cartItems.reduce(
-        (totalPrice, item) => totalPrice + item.price, 0)
-        setTotalPrice(price)
+        if(typeof cart == "string"){
+            const cartItems = JSON.parse(cart)
+            setCartItems(cartItems)
+            
+            const price = cartItems.reduce(
+            (totalPrice, item) => totalPrice + item.price, 0)
+            setTotalPrice(price)
+        }
     }, [])
 
     return(
