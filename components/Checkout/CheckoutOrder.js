@@ -52,7 +52,8 @@ import {
             </Text>
           </Flex>
         </Stack>
-        <Button onClick={() => {
+        <Button onClick={(e) => {
+          e.preventDefault()  
           checkout({
             lineItems: [
               {
