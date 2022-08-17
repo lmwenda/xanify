@@ -83,7 +83,7 @@ import { checkout } from '../../components/Checkout/Checkout';
                                     purchase_units: [
                                         {
                                             amount: {
-                                                value: totalPrice.toString(),
+                                                value: totalPrice.toFixed(2).toString(),
                                             },
                                         },
                                     ],

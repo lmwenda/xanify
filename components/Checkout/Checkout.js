@@ -6,7 +6,7 @@ export async function checkout({lineItems}){
 
 	const getStripe = () => {
 		if(!stripePromise) {
-			stripePromise = loadStripe(process.env.NEXT_API_PAYPAL_KEY)
+			stripePromise = loadStripe(process.env.NEXT_API_STRIPE_KEY)
 		}
 		return stripePromise
 	}
