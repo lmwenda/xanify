@@ -9,10 +9,21 @@ const ProductScreen = (product) => {
 
     const addToCart = (e) => {
         e.preventDefault()
+        const prevItems = localStorage.getItem("cart");
 
-        const items = [];
-        items.push(JSON.parse(localStorage.getItem('cart')));
-        localStorage.setItem('cart', JSON.stringify(id));
+        if(typeof prevItems == "string"){
+            const items = [];
+            const parsedItems = JSON.parse(prevItems)
+            for (let i=parsedItems.length;i--;){
+                items.push(parsedItems[i])
+            }
+            items.push(id)
+            localStorage.setItem("cart", JSON.stringify(items))
+        } else {
+            const items = [id]
+            localStorage.setItem("cart", JSON.stringify(items))
+        }
+
     }
 
     return(

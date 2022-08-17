@@ -62,7 +62,7 @@ import {
                 onClick={isOpen ? onClose : onOpen}
               />
               <Link href="/">
-                <Heading color={colorMode == "light" ? "gray.700" : "gray.100"} fontWeight={"bold"} size={"md"}>
+                <Heading _hover={{ cursor: "pointer" }} color={colorMode == "light" ? "gray.700" : "gray.100"} fontWeight={"bold"} size={"md"}>
                     Xanify
                 </Heading>
               </Link>

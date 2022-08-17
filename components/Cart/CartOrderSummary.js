@@ -29,7 +29,7 @@ import {
         <Heading size="md">Order Summary</Heading>
   
         <Stack spacing="6">
-          <OrderSummaryItem label="Subtotal" value={formatPrice(price)} />
+          <OrderSummaryItem label="Subtotal" value={`£${price.price}`} />
           <OrderSummaryItem label="Shipping + Tax">
             <Link href="#" textDecor="underline">
               Calculate shipping
@@ -45,7 +45,7 @@ import {
               Total
             </Text>
             <Text fontSize="xl" fontWeight="extrabold">
-              {formatPrice(price)}
+              £{price.price}
             </Text>
           </Flex>
         </Stack>

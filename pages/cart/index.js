@@ -13,11 +13,12 @@ import { CartItem } from '../../components/Cart/CartItem'
 import { CartOrderSummary } from '../../components/Cart/CartOrderSummary'
 
 const Index = (products) => {
-    const [ totalPrice, setTotalPrice ] = React.useState(1)
+    const [ totalPrice, setTotalPrice ] = React.useState(0)
     const [ cartItems, setCartItems ] = React.useState([ { 
         id: 0,
         image: "",
-        category: ""
+        category: "",
+        price: 0
      } ])
 
     React.useEffect(() => {
@@ -27,11 +28,13 @@ const Index = (products) => {
             if(typeof cartIDs == "string"){
                 for (let i=products.products.length;i--;){
                     let item=products.products[i];
-                    setTotalPrice(totalPrice + item.price)
-                    cartIDs.map((cartID) => {
-                        if(item.id === cartID)
-                        setCartItems([...cartItems, { id: item.id, image: item.image,  category: item.category }])
-                    })
+                    setTotalPrice(item.price + totalPrice)
+                    for (let i=cartIDs.length;i--;){
+                        let id=cartIDs[i]
+                        if(item.id === id){
+                            setCartItems([...cartItems, { id: item.id, image: item.image, category: item.category, price: item.price }])
+                        }
+                    }
                 }
             }
             else {
@@ -101,10 +104,10 @@ const Index = (products) => {
             </Stack>
 
                 <Flex direction="column" align="center" flex="1">
-                    <CartOrderSummary price={totalPrice > 0 ? totalPrice : 0} />
+                    <CartOrderSummary price={totalPrice >= 1 ? totalPrice : 0} />
                     <HStack mt="6" fontWeight="semibold">
                         <p>or</p>
-                        <Link color={mode('blue.500', 'blue.200')}>Continue shopping</Link>
+                        <Link href="/" color={mode('blue.500', 'blue.200')}>Continue shopping</Link>
                     </HStack>
                 </Flex>
             </Stack>
